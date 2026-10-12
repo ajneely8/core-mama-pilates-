@@ -11,7 +11,12 @@ export const site = {
   tagline: "Movement designed for real life.",
   description:
     "Self-guided reformer Pilates with on-site childcare in Yuba City, California. Reserve a reformer, settle in, and move at your own pace on a schedule that fits your life.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:5330",
+  // Canonical origin: explicit env var, else Vercel's production / preview host, else local dev.
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined) ??
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ??
+    "http://localhost:5330",
   timezone: process.env.NEXT_PUBLIC_STUDIO_TIMEZONE ?? "America/Los_Angeles",
   timezoneLabel: "Pacific Time",
 
